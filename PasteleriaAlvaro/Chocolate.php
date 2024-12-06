@@ -15,7 +15,7 @@ class Chocolate extends Dulce {
         $this->peso = $peso;
     }
 
-    //Se crean los nuevo métodos
+    //Se crean los nuevos métodos
     public function getPorcentajeCacao() {
         return $this->porcentajeCacao;
     }
@@ -26,18 +26,19 @@ class Chocolate extends Dulce {
 
     //Se sobrescribe el método muestraResumen
     public function muestraResumen() {
-        return "El chocolate es el siguiente: " . $this->getNombre() . 
-               "\nPrecio: " . $this->getPrecio() . " €" .
-               "\nDescripción: " . $this->getDescripcion() . 
-               "\nCategoría: " . $this->getCategoria() . 
-               "\nPorcentaje de Cacao: " . $this->porcentajeCacao . "%" .
-               "\nPeso: " . $this->peso . "g" .
-               "\nIVA: " . self::getIVA() . " %\n";
+        return "El chocolate es el siguiente:<br>" . 
+               "Nombre: " . $this->getNombre() . "<br>" .
+               "Precio: " . $this->getPrecio() . " €<br>" .
+               "Descripción: " . $this->getDescripcion() . "<br>" .
+               "Categoría: " . $this->getCategoria() . "<br>" .
+               "Porcentaje de Cacao: " . $this->porcentajeCacao . "%<br>" .
+               "Peso: " . $this->peso . "g<br>" .
+               "IVA: " . self::getIVA() . " %<br>";
     }
 }
 
 //Se prueba la clase Chocolate
-$chocolate = new Chocolate("Chocolate Negro", 2, "Chocolate negro 75%", "Chocolate", 70, 100);
+$chocolate = new Chocolate("Chocolate Negro", 2, "Chocolate negro 75%", "Chocolate", 75, 100);
 echo $chocolate->muestraResumen();
 
 ?>

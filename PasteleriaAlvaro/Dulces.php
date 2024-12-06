@@ -7,8 +7,6 @@ class Dulce {
     private $precio;
     private $descripcion;
     private $categoria;
-
-    //Constante para el IVA
     private static $IVA = 21;
 
     //Se crea el constructor
@@ -39,16 +37,15 @@ class Dulce {
     public static function getIVA() {
         return self::$IVA;
     }
+
+    //Se crea la funcion para mostrar el resumen 
+    public function muestraResumen() {
+        return "Nombre: " . $this->getNombre() . "<br>" .
+               "Precio: " . $this->getPrecio() . " €<br>" .
+               "Descripción: " . $this->getDescripcion() . "<br>" .
+               "Categoría: " . $this->getCategoria() . "<br>" .
+               "IVA: " . self::getIVA() . " %<br>";
+    }
 }
-
-//Se crea un objeto de prueba y se muestran sus propiedades
-$dulce = new Dulce("Tarta de Chocolate", 15, "Tarta de chocolate con relleno", "Tarta");
-
-echo "El dulce es el siguiente:\n";
-echo "Nombre: " . $dulce->getNombre() . "\n";
-echo "Precio: " . $dulce->getPrecio() . " €\n";
-echo "Descripción: " . $dulce->getDescripcion() . "\n";
-echo "Categoría: " . $dulce->getCategoria() . "\n";
-echo "IVA: " . Dulce::getIVA() . " %\n";
 
 ?>

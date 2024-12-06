@@ -32,14 +32,15 @@ class Tarta extends Dulce {
 
     //Se sobrescribe el método muestraResumen
     public function muestraResumen() {
-        return "La tarta es la siguiente: " . $this->getNombre() . 
-               "\nPrecio: " . $this->getPrecio() . " €" .
-               "\nDescripción: " . $this->getDescripcion() . 
-               "\nCategoría: " . $this->getCategoria() . 
-               "\nNúmero de pisos: " . $this->numPisos . 
-               "\nRellenos: " . implode(", ", $this->rellenos) . 
-               "\n" . $this->muestraComensalesPosibles() . 
-               "\nIVA: " . self::getIVA() . " %\n";
+        return "La tarta es la siguiente:<br>" . 
+               "Nombre: " . $this->getNombre() . "<br>" .
+               "Precio: " . $this->getPrecio() . " €<br>" .
+               "Descripción: " . $this->getDescripcion() . "<br>" .
+               "Categoría: " . $this->getCategoria() . "<br>" .
+               "Número de pisos: " . $this->numPisos . "<br>" .
+               "Rellenos: " . implode(", ", $this->rellenos) . "<br>" .
+               "Comensales posibles: " . $this->muestraComensalesPosibles() . "<br>" .
+               "IVA: " . self::getIVA() . " %<br>";
     }
 }
 

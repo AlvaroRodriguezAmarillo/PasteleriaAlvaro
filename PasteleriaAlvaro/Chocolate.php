@@ -26,7 +26,7 @@ class Chocolate extends Dulce {
 
     //Se sobrescribe el método muestraResumen
     public function muestraResumen() {
-        return "Chocolate: " . $this->getNombre() . 
+        return "El chocolate es el siguiente: " . $this->getNombre() . 
                "\nPrecio: " . $this->getPrecio() . " €" .
                "\nDescripción: " . $this->getDescripcion() . 
                "\nCategoría: " . $this->getCategoria() . 

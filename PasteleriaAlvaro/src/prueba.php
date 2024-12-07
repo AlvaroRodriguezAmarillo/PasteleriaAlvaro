@@ -5,6 +5,10 @@ require_once 'Chocolate.php';
 require_once 'Tarta.php';
 require_once 'Cliente.php';
 require_once 'Pasteleria.php';
+require_once '../util/PasteleriaException.php';
+require_once '../util/DulceNoCompradoException.php';
+require_once '../util/DulceNoEncontradoException.php';
+require_once '../util/ClienteNoEncontradoException.php';
 
 //Se crean objetos 
 $bollo = new Bollo("Croissant", 1, "Crujiente bollo de hojaldre", "Bollo", "Chocolate");

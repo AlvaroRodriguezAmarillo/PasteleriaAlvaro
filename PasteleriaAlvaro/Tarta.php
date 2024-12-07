@@ -1,6 +1,6 @@
 <?php
 
-require_once "Dulces.php";
+require_once "Dulces.php"; 
 
 class Tarta extends Dulce {
 
@@ -10,7 +10,7 @@ class Tarta extends Dulce {
     private $minNumComensales;
     private $maxNumComensales;
 
-    //Se sobrescribe el constructor
+    //Se crea el constructor
     public function __construct($nombre, $precio, $descripcion, $categoria, $numPisos, $rellenos, $minNumComensales = 2, $maxNumComensales = 10) {
         parent::__construct($nombre, $precio, $descripcion, $categoria);
         $this->numPisos = $numPisos;
@@ -19,18 +19,16 @@ class Tarta extends Dulce {
         $this->maxNumComensales = $maxNumComensales;
     }
 
-    //Se crea el nuevo metodo
+    //Se crean las funciones
     public function muestraComensalesPosibles() {
         if ($this->minNumComensales === $this->maxNumComensales) {
             return "Para " . $this->minNumComensales . " comensales.";
-        } else if ($this->minNumComensales === 2 && $this->maxNumComensales === 10) {
-            return "Para dos comensales a " . $this->maxNumComensales . " comensales.";
         } else {
             return "De " . $this->minNumComensales . " a " . $this->maxNumComensales . " comensales.";
         }
     }
 
-    //Se sobrescribe el método muestraResumen
+    //Se implementa el método abstracto muestraResumen
     public function muestraResumen() {
         return "La tarta es la siguiente:<br>" . 
                "Nombre: " . $this->getNombre() . "<br>" .
@@ -43,10 +41,5 @@ class Tarta extends Dulce {
                "IVA: " . self::getIVA() . " %<br>";
     }
 }
-
-//Se prueba la clase Tarta
-$rellenos = ["Chocolate", "Frambuesa", "Nata"];
-$tarta = new Tarta("Tarta de Bodas", 40, "Tarta grande de bodas con múltiples rellenos", "Tarta", 3, $rellenos, 4, 8);
-echo $tarta->muestraResumen();
 
 ?>

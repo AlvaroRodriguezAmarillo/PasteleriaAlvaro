@@ -1,33 +1,39 @@
 <?php
 
-require_once "Dulces.php";
+require_once "Bollo.php";
+require_once "Chocolate.php";
+require_once "Tarta.php";
 require_once "Cliente.php";
 require_once "Pasteleria.php";
 
-//Se crean los dulces
-$chocolate = new Dulce("Chocolate Blanco", 3, "Chocolate blanco con leche", "Chocolate");
-$bollo = new Dulce("Brioche", 2.5, "Bollo de masa esponjosa", "Bollo");
+//Se crean objetos 
+$bollo = new Bollo("Croissant", 1, "Crujiente bollo de hojaldre", "Bollo", "Chocolate");
+$chocolate = new Chocolate("Chocolate Negro", 2, "Chocolate negro 75%", "Chocolate", 75, 100);
+$tarta = new Tarta("Tarta de Bodas", 40, "Tarta grande de bodas con múltiples rellenos", "Tarta", 3, ["Chocolate", "Frambuesa", "Nata"], 4, 8);
 
-//Se crean algunos clientes
+//Se crean clientes
 $cliente1 = new Cliente("Roberto Gómez");
 $cliente2 = new Cliente("Alvaro Rodríguez");
 
-//Se crea la pastelería
+//Se crea la pasteleria
 $pasteleria = new Pasteleria();
 
-//Se incluyen dulces y clientes
-$pasteleria->incluirDulce($chocolate);
+//Se incluyen productos
 $pasteleria->incluirDulce($bollo);
+$pasteleria->incluirDulce($chocolate);
+$pasteleria->incluirDulce($tarta);
+
+//Se incluyen clientes
 $pasteleria->incluirCliente($cliente1);
 $pasteleria->incluirCliente($cliente2);
 
-//Se muestran productos
+//Se muestran ls productos
 $pasteleria->mostrarProductos();
 
-//Se realizan compras
+//Se hacen las compras 
 $cliente1->comprar($chocolate);
-$cliente2->comprar($chocolate);
 $cliente2->comprar($bollo);
+$cliente2->comprar($chocolate);
 
 //Se muestran los pedidos
 $cliente1->listarPedidos();

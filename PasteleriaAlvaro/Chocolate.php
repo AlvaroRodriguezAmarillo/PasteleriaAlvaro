@@ -1,21 +1,21 @@
 <?php
 
-require_once "Dulces.php";
+require_once "Dulces.php";  
 
 class Chocolate extends Dulce {
 
-    //Se añaden los atributos
+    //Se añaden los atributos 
     private $porcentajeCacao;
     private $peso;
 
-    //Se sobrescribe el constructor 
+    //Se crea el constructor
     public function __construct($nombre, $precio, $descripcion, $categoria, $porcentajeCacao, $peso) {
         parent::__construct($nombre, $precio, $descripcion, $categoria);
         $this->porcentajeCacao = $porcentajeCacao;
         $this->peso = $peso;
     }
 
-    //Se crean los nuevos métodos
+    //Se crean las funciones
     public function getPorcentajeCacao() {
         return $this->porcentajeCacao;
     }
@@ -24,7 +24,7 @@ class Chocolate extends Dulce {
         return $this->peso;
     }
 
-    //Se sobrescribe el método muestraResumen
+    //Se implementa el método abstracto muestraResumen
     public function muestraResumen() {
         return "El chocolate es el siguiente:<br>" . 
                "Nombre: " . $this->getNombre() . "<br>" .
@@ -36,9 +36,5 @@ class Chocolate extends Dulce {
                "IVA: " . self::getIVA() . " %<br>";
     }
 }
-
-//Se prueba la clase Chocolate
-$chocolate = new Chocolate("Chocolate Negro", 2, "Chocolate negro 75%", "Chocolate", 75, 100);
-echo $chocolate->muestraResumen();
 
 ?>

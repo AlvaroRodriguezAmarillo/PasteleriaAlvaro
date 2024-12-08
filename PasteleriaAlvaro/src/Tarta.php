@@ -1,16 +1,16 @@
 <?php
 
-require_once ("Dulces.php"); 
+require_once 'Dulces.php'; 
 
 class Tarta extends Dulce {
 
-    //Se añaden los atributos
+    // Se añaden los atributos
     private $rellenos = [];
     private $numPisos;
     private $minNumComensales;
     private $maxNumComensales;
 
-    //Se crea el constructor
+    // Se crea el constructor
     public function __construct($nombre, $precio, $descripcion, $categoria, $numPisos, $rellenos, $minNumComensales = 2, $maxNumComensales = 10) {
         parent::__construct($nombre, $precio, $descripcion, $categoria);
         $this->numPisos = $numPisos;
@@ -19,7 +19,7 @@ class Tarta extends Dulce {
         $this->maxNumComensales = $maxNumComensales;
     }
 
-    //Se crean las funciones
+    // Se crea la función para mostrar los comensales posibles
     public function muestraComensalesPosibles() {
         if ($this->minNumComensales === $this->maxNumComensales) {
             return "Para " . $this->minNumComensales . " comensales.";
@@ -28,18 +28,17 @@ class Tarta extends Dulce {
         }
     }
 
-    //Se implementa el método abstracto muestraResumen
+    // Se implementa el método abstracto muestraResumen
     public function muestraResumen() {
         return "La tarta es la siguiente:<br>" . 
-               "Nombre: " . $this->getNombre() . "<br>" .
-               "Precio: " . $this->getPrecio() . " €<br>" .
-               "Descripción: " . $this->getDescripcion() . "<br>" .
-               "Categoría: " . $this->getCategoria() . "<br>" .
-               "Número de pisos: " . $this->numPisos . "<br>" .
-               "Rellenos: " . implode(", ", $this->rellenos) . "<br>" .
-               "Comensales posibles: " . $this->muestraComensalesPosibles() . "<br>" .
+               "Nombre: " . $this->getNombre() . "<br>" . 
+               "Precio: " . $this->getPrecio() . " €<br>" . 
+               "Descripción: " . $this->getDescripcion() . "<br>" . 
+               "Categoría: " . $this->getCategoria() . "<br>" . 
+               "Número de pisos: " . $this->numPisos . "<br>" . 
+               "Rellenos: " . implode(", ", $this->rellenos) . "<br>" . 
+               "Comensales posibles: " . $this->muestraComensalesPosibles() . "<br>" . 
                "IVA: " . self::getIVA() . " %<br>";
     }
 }
-
 ?>

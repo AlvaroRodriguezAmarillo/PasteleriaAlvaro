@@ -10,36 +10,36 @@ require_once '../util/DulceNoCompradoException.php';
 require_once '../util/DulceNoEncontradoException.php';
 require_once '../util/ClienteNoEncontradoException.php';
 
-//Se crean objetos 
+// Crear objetos de los productos
 $bollo = new Bollo("Croissant", 1, "Crujiente bollo de hojaldre", "Bollo", "Chocolate");
 $chocolate = new Chocolate("Chocolate Negro", 2, "Chocolate negro 75%", "Chocolate", 75, 100);
 $tarta = new Tarta("Tarta de Bodas", 40, "Tarta grande de bodas con múltiples rellenos", "Tarta", 3, ["Chocolate", "Frambuesa", "Nata"], 4, 8);
 
-//Se crean clientes
+// Crear clientes
 $cliente1 = new Cliente("Roberto Gómez");
 $cliente2 = new Cliente("Alvaro Rodríguez");
 
-//Se crea la pastelería
+// Crear la pastelería
 $pasteleria = new Pasteleria();
 
-//Se incluyen productos
+// Incluir productos en la pastelería (en memoria y/o base de datos)
 $pasteleria->incluirDulce($bollo);
 $pasteleria->incluirDulce($chocolate);
 $pasteleria->incluirDulce($tarta);
 
-//Se incluyen clientes
+// Incluir clientes en la pastelería
 $pasteleria->incluirCliente($cliente1);
 $pasteleria->incluirCliente($cliente2);
 
-//Se muestran los productos
+// Mostrar productos disponibles
 $pasteleria->mostrarProductos();
 
-//Se hacen las compras 
+// Hacer compras
 $cliente1->comprar($chocolate);
 $cliente2->comprar($bollo);
 $cliente2->comprar($chocolate);
 
-//Se muestran los pedidos
+// Mostrar los pedidos realizados por los clientes
 $cliente1->listarPedidos();
 $cliente2->listarPedidos();
 

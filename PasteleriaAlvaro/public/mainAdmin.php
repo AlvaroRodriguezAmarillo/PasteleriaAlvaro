@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Verificamos si el usuario está autenticado y es admin
+// Verificar si el usuario está autenticado y es admin
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== 'admin') {
     header('Location: index.php');
     exit;
@@ -11,23 +11,22 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== 'admin') {
 $usuario = $_SESSION['usuario'];
 
 // Incluir la clase de conexión
-require_once __DIR__ . '/../src/Conexion.php'; // Ajusta la ruta según sea necesario
+require_once __DIR__ . '/../src/Conexion.php';
 
 $conexion = Conexion::obtenerInstancia()->obtenerConexion();
 
 try {
     // Consultar los productos de la base de datos
-    $sqlProductos = "SELECT nombre, precio, categoria, tipo, relleno FROM productos";
+    $sqlProductos = "SELECT id, nombre, precio, categoria, tipo, relleno, imagen FROM productos";
     $stmtProductos = $conexion->prepare($sqlProductos);
     $stmtProductos->execute();
     $productos = $stmtProductos->fetchAll(PDO::FETCH_ASSOC);
 
     // Consultar los clientes (usuarios) de la base de datos
-    $sqlUsuarios = "SELECT id, nombre, usuario, contrasena FROM clientes"; // Cambié usuarios a clientes
+    $sqlUsuarios = "SELECT id, nombre, usuario, contrasena FROM clientes";
     $stmtUsuarios = $conexion->prepare($sqlUsuarios);
     $stmtUsuarios->execute();
     $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
     die("Error al obtener datos: " . $e->getMessage());
 }
@@ -39,7 +38,6 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Admin</title>
-    <!-- Vinculamos Bootstrap desde el CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -57,6 +55,10 @@ try {
                 <?php foreach ($productos as $producto) : ?>
                     <div class="col">
                         <div class="card h-100">
+                            <!-- Ruta de la imagen -->
+                            <img src="<?php echo htmlspecialchars($producto['imagen']); ?>" 
+                                 class="card-img-top" 
+                                 alt="Imagen de <?php echo htmlspecialchars($producto['nombre']); ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($producto['nombre']); ?></h5>
                                 <p class="card-text"><strong>Precio:</strong> <?php echo htmlspecialchars($producto['precio']); ?> €</p>
@@ -81,7 +83,7 @@ try {
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Usuario</th>
-                        <th>Contraseña</th> <!-- Agregué campo de contraseña para mostrar -->
+                        <th>Contraseña</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,8 +91,8 @@ try {
                         <tr>
                             <td><?php echo htmlspecialchars($usuario['id']); ?></td>
                             <td><?php echo htmlspecialchars($usuario['nombre']); ?></td>
-                            <td><?php echo htmlspecialchars($usuario['usuario']); ?></td> <!-- Mostramos el campo 'usuario' -->
-                            <td><?php echo htmlspecialchars($usuario['contrasena']); ?></td> <!-- Mostramos la contraseña -->
+                            <td><?php echo htmlspecialchars($usuario['usuario']); ?></td>
+                            <td><?php echo htmlspecialchars($usuario['contrasena']); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -100,7 +102,6 @@ try {
         <?php endif; ?>
     </div>
 
-    <!-- Vinculamos Bootstrap JS desde el CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

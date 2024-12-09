@@ -31,27 +31,28 @@ CREATE TABLE IF NOT EXISTS pedidos (
     FOREIGN KEY (producto_id) REFERENCES productos(id) ON DELETE CASCADE
 );
 
+
 -- Insertar clientes
 INSERT INTO clientes (nombre, usuario, contrasena) 
 VALUES 
-    ('Admin', 'admin', 'admin123'),
-    ('Test User', 'testuser', 'test123');
+    ('Admin', 'admin', 'admin'),
+    ('Usuario', 'usuario', 'usuario');
 
 -- Insertar productos con imágenes
 INSERT INTO productos (nombre, precio, categoria, tipo, relleno, imagen) 
 VALUES 
-    ('Tarta Chocolate', 20.00, 'Tartas', 'Tarta', 'Chocolate', 'img/tartaChocolate.jpg'),
-    ('Tarta Fresa', 18.00, 'Tartas', 'Tarta', 'Fresa', 'img/tartaFresa.jpg'),
-    ('Tarta Limón', 19.00, 'Tartas', 'Tarta', 'Limón', 'img/tartaLimon.jpg'),
+    ('Tarta Chocolate', 15.95, 'Tartas', 'Tarta', 'Chocolate', 'img/tartaChocolate.jpg'),
+    ('Tarta Fresa', 19.99, 'Tartas', 'Tarta', 'Fresa', 'img/tartaFresa.jpg'),
+    ('Tarta Limón', 22.00, 'Tartas', 'Tarta', 'Limón', 'img/tartaLimon.jpg'),
     
-    ('Bollo de Crema', 3.50, 'Bollos', 'Bollo', 'Crema', 'img/bolloCrema.jpg'),
-    ('Palmera de Crema', 3.50, 'Bollos', 'Bollo', 'Crema', 'img/palmeraCrema.jpg'),
-    ('Palmera de Chocolate', 3.75, 'Bollos', 'Bollo', 'Chocolate', 'img/palmeraChocolate.jpg'),
+    ('Bollo de Crema', 2.50, 'Bollos', 'Bollo', 'Crema', 'img/bolloDeCrema.jpg'),
+    ('Palmera de Crema', 3.00, 'Bollos', 'Bollo', 'Crema', 'img/palmeraCrema.jpg'),
+    ('Palmera de Chocolate', 3.25, 'Bollos', 'Bollo', 'Chocolate', 'img/palmeraChocolate.jpg'),
     
-    ('Chocolate Amargo', 2.00, 'Chocolate', 'Chocolate', 'Amargo', 'img/chocolateAmargo.jpg'),
-    ('Chocolate Blanco', 2.50, 'Chocolate', 'Chocolate', 'Blanco', 'img/chocolateBlanco.jpg'),
+    ('Chocolate Amargo', 1.99, 'Chocolate', 'Chocolate', 'Amargo', 'img/chocolateAmargo.jpg'),
+    ('Chocolate Blanco', 2.20, 'Chocolate', 'Chocolate', 'Blanco', 'img/chocolateBlanco.jpg'),
     ('Chocolate con Leche', 2.25, 'Chocolate', 'Chocolate', 'Leche', 'img/chocolateLeche.jpg'),
     
-    ('Churros con Chocolate', 6.00, 'Dulces', 'Dulces', 'Chocolate', 'img/churrosChocolate.jpg'),
+    ('Churros con Chocolate', 2.00, 'Dulces', 'Dulces', 'Chocolate', 'img/churrosChocolate.jpg'),
     ('Croissant de Nutella', 2.50, 'Dulces', 'Dulces', 'Nutella', 'img/croissantNutella.jpg'),
-    ('Polvorones de Leche Condensada', 5.50, 'Dulces', 'Polvorón', 'Leche Condensada', 'img/polvoronesLeche.jpg');
+    ('Polvorones de Leche Condensada', 3.25, 'Dulces', 'Polvorón', 'Leche Condensada', 'img/polvoronesLeche.jpg');

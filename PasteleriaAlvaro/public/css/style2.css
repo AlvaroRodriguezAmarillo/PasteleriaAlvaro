@@ -1,0 +1,14 @@
+/* Estilo para la notificación en el botón de carrito */
+.cart-notification {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 7px; /* Reducimos el tamaño del círculo */
+    font-size: 12px; /* Ajustamos el tamaño de la fuente */
+    min-width: 18px; /* Aseguramos un tamaño mínimo para el círculo */
+    text-align: center;
+    line-height: 1; /* Centra el texto dentro del círculo */
+}

@@ -12,19 +12,7 @@ require_once __DIR__ . '/../src/Conexion.php';
 
 $conexion = Conexion::obtenerInstancia()->obtenerConexion();
 
-try {
-    // Consultar los productos de la base de datos
-    $sql = "SELECT id, nombre, precio, categoria, tipo, relleno, imagen FROM productos";
-    $stmt = $conexion->prepare($sql);
-    $stmt->execute();
-
-    // Obtener los resultados
-    $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    die("Error al obtener productos: " . $e->getMessage());
-}
-
-// Obtener el nombre del usuario para mostrar
+// Obtener el nombre del usuario
 $usuario = $_SESSION['usuario'];
 
 // Lógica para agregar productos al carrito
@@ -33,18 +21,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['producto_id'])) {
     $producto_nombre = $_POST['producto_nombre'];
     $producto_precio = $_POST['producto_precio'];
 
-    // Inicializar el carrito si no existe
-    if (!isset($_SESSION['carrito'])) {
-        $_SESSION['carrito'] = [];
+    // Conectar a la base de datos para guardar en el carrito
+    try {
+        $sql = "INSERT INTO pedidos (cliente_id, producto_id, cantidad) 
+                VALUES ((SELECT id FROM clientes WHERE usuario = :usuario), :producto_id, 1)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->execute([
+            ':usuario' => $usuario,
+            ':producto_id' => $producto_id
+        ]);
+    } catch (PDOException $e) {
+        die("Error al agregar producto al carrito: " . $e->getMessage());
     }
-
-    // Agregar producto al carrito
-    $_SESSION['carrito'][] = [
-        'id' => $producto_id,
-        'nombre' => $producto_nombre,
-        'precio' => $producto_precio
-    ];
 }
+
+// Obtener productos de la base de datos
+try {
+    $sql = "SELECT id, nombre, precio, categoria, tipo, relleno, imagen FROM productos";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute();
+    $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Error al obtener productos: " . $e->getMessage());
+}
+
+// Obtener el número de productos en el carrito
+$sql = "SELECT COUNT(*) FROM pedidos WHERE cliente_id = (SELECT id FROM clientes WHERE usuario = :usuario)";
+$stmt = $conexion->prepare($sql);
+$stmt->execute([':usuario' => $usuario]);
+$cantidadCarrito = $stmt->fetchColumn();
 ?>
 
 <!DOCTYPE html>
@@ -54,12 +59,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['producto_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style2.css" rel="stylesheet"> <!-- Enlace al archivo CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
         <h1>Bienvenido, <?php echo htmlspecialchars($usuario); ?></h1>
-        <a href="logout.php" class="btn btn-danger mt-2">Cerrar sesión</a>
+        <div class="mt-2">
+            <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>
+            <a href="carrito.php" class="btn btn-secondary position-relative">
+                <i class="fas fa-shopping-cart"></i> Ver mi carrito
+                <?php if ($cantidadCarrito > 0): ?>
+                    <span class="cart-notification"><?php echo $cantidadCarrito; ?></span>
+                <?php endif; ?>
+            </a>
+        </div>
 
         <h2 class="mt-4">Productos Disponibles</h2>
 
@@ -68,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['producto_id'])) {
                 <?php foreach ($productos as $producto) : ?>
                     <div class="col">
                         <div class="card h-100">
-                            <!-- Ruta de la imagen -->
                             <img src="<?php echo htmlspecialchars($producto['imagen']); ?>" 
                                  class="card-img-top" 
                                  alt="Imagen de <?php echo htmlspecialchars($producto['nombre']); ?>">

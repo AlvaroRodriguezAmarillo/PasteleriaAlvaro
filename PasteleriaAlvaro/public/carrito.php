@@ -61,13 +61,19 @@ $total = array_reduce($carrito, function ($suma, $producto) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Carrito</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/carrito.js" defer></script> <!-- Enlace al archivo JS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> <!-- Fuente personalizada -->
+    <link href="css/style3.css" rel="stylesheet">
+
+    
 </head>
 <body>
     <div class="container mt-5">
         <h1>Carrito de <?php echo htmlspecialchars($usuario); ?></h1>
-        <a href="main.php" class="btn btn-secondary">Volver a la tienda</a>
-        <a href="ticket.php" class="btn btn-success">Pagar compra</a>
+        <div class="mt-3">
+            <a href="main.php" class="btn btn-secondary">Volver a la tienda</a>
+            <a href="ticket.php" class="btn btn-success">Pagar compra</a>
+        </div>
+
         <h2 class="mt-4">Productos en tu carrito</h2>
 
         <?php if (!empty($carrito)) : ?>
@@ -98,10 +104,14 @@ $total = array_reduce($carrito, function ($suma, $producto) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <h3>Total: <?php echo $total; ?> €</h3>
+            <div class="total">
+                <h3>Total: <?php echo $total; ?> €</h3>
+            </div>
         <?php else : ?>
-            <p>Tu carrito está vacío.</p>
+            <p class="empty-cart-message">Tu carrito está vacío.</p>
         <?php endif; ?>
     </div>
+
+    <script src="js/carrito.js" defer></script> <!-- Enlace al archivo JS -->
 </body>
 </html>

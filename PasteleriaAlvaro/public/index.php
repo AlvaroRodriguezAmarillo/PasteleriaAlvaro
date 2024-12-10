@@ -11,7 +11,7 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <h1>Login</h1>
+        <h1>Iniciar Sesion</h1>
         <?php 
         if (isset($_SESSION['error'])) {
             echo "<p class='error'>".$_SESSION['error']."</p>";

@@ -56,3 +56,7 @@ VALUES
     ('Churros con Chocolate', 2.00, 'Dulces', 'Dulces', 'Chocolate', 'img/churrosChocolate.jpg'),
     ('Croissant de Nutella', 2.50, 'Dulces', 'Dulces', 'Nutella', 'img/croissantNutella.jpg'),
     ('Polvorones de Leche Condensada', 3.25, 'Dulces', 'Polvorón', 'Leche Condensada', 'img/polvoronesLeche.jpg');
+
+INSERT INTO productos (nombre, precio, categoria, tipo, relleno, imagen) 
+VALUES 
+    ('Tarta Limón', 22.00, 'Tartas', 'Tarta', 'Limón', 'img/tartaLimon.jpg');

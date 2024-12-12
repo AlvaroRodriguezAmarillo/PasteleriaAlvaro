@@ -81,6 +81,8 @@ $cantidadCarrito = $stmt->fetchColumn();
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> <!-- Fuente personalizada -->
     <link href="css/style2.css" rel="stylesheet"> <!-- Enlace al archivo CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="js/cookie.js" defer></script>
+
 </head>
 <body>
     <div class="container mt-5">

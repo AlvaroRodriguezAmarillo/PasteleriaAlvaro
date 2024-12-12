@@ -78,6 +78,7 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style6.css" rel="stylesheet">
     <script src="js/confirmaciones.js" defer></script>
+    <script src="js/cookie.js" defer></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -134,6 +135,34 @@ try {
         <?php else : ?>
             <p>No hay productos disponibles.</p>
         <?php endif; ?>
+
+        <!-- Tabla de clientes -->
+        <h3 class="mt-4">Listado de Clientes</h3>
+        <?php if (!empty($usuarios)) : ?>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Contraseña</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($usuarios as $usuario) : ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($usuario['id']); ?></td>
+                            <td><?php echo htmlspecialchars($usuario['nombre']); ?></td>
+                            <td><?php echo htmlspecialchars($usuario['usuario']); ?></td>
+                            <td><?php echo htmlspecialchars($usuario['contrasena']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p>No hay clientes registrados.</p>
+        <?php endif; ?>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

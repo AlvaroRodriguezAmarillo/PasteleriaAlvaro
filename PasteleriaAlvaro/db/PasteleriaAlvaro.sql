@@ -14,12 +14,13 @@ CREATE TABLE IF NOT EXISTS productos (
 );
 
 -- Creación tabla de clientes
-CREATE TABLE IF NOT EXISTS clientes (
+CREATE TABLE clientes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    usuario VARCHAR(100) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL
 );
+
 
 -- Creación tabla de pedidos
 CREATE TABLE IF NOT EXISTS pedidos (

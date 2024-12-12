@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] === 'admin') {
     header('Location: index.php');
     exit;
@@ -12,7 +11,6 @@ require_once __DIR__ . '/../src/Conexion.php';
 $conexion = Conexion::obtenerInstancia()->obtenerConexion();
 $usuario = $_SESSION['usuario'];
 
-// Obtener productos del carrito (agrupados por producto)
 try {
     $sql = "SELECT p.id, p.nombre, p.precio, SUM(pe.cantidad) AS cantidad
             FROM pedidos pe
@@ -26,7 +24,6 @@ try {
     die("Error al obtener el carrito: " . $e->getMessage());
 }
 
-// Calcular el total
 $total = array_reduce($carrito, function ($suma, $producto) {
     return $suma + ($producto['precio'] * $producto['cantidad']);
 }, 0);

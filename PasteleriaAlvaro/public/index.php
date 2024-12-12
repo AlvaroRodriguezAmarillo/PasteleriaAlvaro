@@ -7,11 +7,11 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="css/style.css"> <!-- Referencia al archivo CSS en la carpeta css -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Iniciar Sesion</h1>
+        <h1>Iniciar Sesión</h1>
         <?php 
         if (isset($_SESSION['error'])) {
             echo "<p class='error'>".$_SESSION['error']."</p>";
@@ -27,6 +27,7 @@ session_start();
 
             <button type="submit">Iniciar sesión</button>
         </form>
+        <a href="registro.php"><button class="btn-register">Regístrate aquí</button></a>
     </div>
 </body>
 </html>

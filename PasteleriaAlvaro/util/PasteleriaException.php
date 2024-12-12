@@ -2,7 +2,9 @@
 
 // Excepción base para la pastelería
 class PasteleriaException extends Exception {
-    // No es necesario sobrescribir ningún método, pero si lo deseas, puedes agregar lógica aquí
+    public function __construct($message = "Ocurrió un error en la pastelería", $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
 }
 
 ?>

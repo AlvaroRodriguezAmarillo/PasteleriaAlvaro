@@ -1,29 +1,25 @@
 <?php
 session_start();
 
-// Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] === 'admin') {
     header('Location: index.php');
     exit;
 }
 
-// Incluir la clase de conexión
 require_once __DIR__ . '/../src/Conexion.php';
 
 $conexion = Conexion::obtenerInstancia()->obtenerConexion();
 
-// Obtener el nombre del usuario
 $usuario = $_SESSION['usuario'];
 
-// Lógica para agregar productos al carrito
+//Lógica para agregar productos al carrito
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['producto_id'])) {
     $producto_id = $_POST['producto_id'];
     $producto_nombre = $_POST['producto_nombre'];
     $producto_precio = $_POST['producto_precio'];
 
-    // Conectar a la base de datos para guardar en el carrito
     try {
-        // Verificar si el producto ya existe en el carrito
+        //Verificar si el producto ya existe en el carrito
         $sql = "SELECT cantidad FROM pedidos 
                 WHERE cliente_id = (SELECT id FROM clientes WHERE usuario = :usuario)
                 AND producto_id = :producto_id";
@@ -35,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['producto_id'])) {
         $productoExistente = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($productoExistente) {
-            // Si el producto ya existe, incrementar la cantidad
+            //Si el producto ya existe, incrementar la cantidad
             $sql = "UPDATE pedidos 
                     SET cantidad = cantidad + 1
                     WHERE cliente_id = (SELECT id FROM clientes WHERE usuario = :usuario)
@@ -43,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['producto_id'])) {
             $stmt = $conexion->prepare($sql);
             $stmt->execute([':usuario' => $usuario, ':producto_id' => $producto_id]);
         } else {
-            // Si el producto no existe, insertarlo con cantidad 1
+            //Si el producto no existe, insertarlo con cantidad 1
             $sql = "INSERT INTO pedidos (cliente_id, producto_id, cantidad) 
                     VALUES ((SELECT id FROM clientes WHERE usuario = :usuario), :producto_id, 1)";
             $stmt = $conexion->prepare($sql);
@@ -54,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['producto_id'])) {
     }
 }
 
-// Obtener productos de la base de datos
 try {
     $sql = "SELECT id, nombre, precio, categoria, tipo, relleno, imagen FROM productos";
     $stmt = $conexion->prepare($sql);
@@ -64,7 +59,6 @@ try {
     die("Error al obtener productos: " . $e->getMessage());
 }
 
-// Obtener el número de productos en el carrito
 $sql = "SELECT COUNT(*) FROM pedidos WHERE cliente_id = (SELECT id FROM clientes WHERE usuario = :usuario)";
 $stmt = $conexion->prepare($sql);
 $stmt->execute([':usuario' => $usuario]);
@@ -86,8 +80,8 @@ $cantidadCarrito = $stmt->fetchColumn();
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Bienvenido, <?php echo htmlspecialchars($usuario); ?></h1>
-        <div class="mt-3">
+    <h1>Bienvenido a la pasteleria, <?php echo htmlspecialchars($usuario); ?></h1>
+    <div class="mt-3">
             <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>
             <a href="carrito.php" class="btn btn-secondary position-relative">
                 <i class="fas fa-shopping-cart"></i> Ver mi carrito

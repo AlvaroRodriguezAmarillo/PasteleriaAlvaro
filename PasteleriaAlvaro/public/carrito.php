@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] === 'admin') {
     header('Location: index.php');
     exit;
@@ -12,7 +11,6 @@ require_once __DIR__ . '/../src/Conexion.php';
 $conexion = Conexion::obtenerInstancia()->obtenerConexion();
 $usuario = $_SESSION['usuario'];
 
-// Lógica para eliminar un producto del carrito
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['producto_id'])) {
     $producto_id = $_POST['producto_id'];
 
@@ -30,12 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['producto_id'])) {
         die("Error al eliminar el producto del carrito: " . $e->getMessage());
     }
 
-    // Redirigir para evitar reenvío del formulario
     header('Location: carrito.php');
     exit;
 }
 
-// Obtener productos del carrito
 try {
     $sql = "SELECT p.id, p.nombre, p.precio, pe.cantidad
             FROM pedidos pe
@@ -48,7 +44,6 @@ try {
     die("Error al obtener el carrito: " . $e->getMessage());
 }
 
-// Calcular el total
 $total = array_reduce($carrito, function ($suma, $producto) {
     return $suma + ($producto['precio'] * $producto['cantidad']);
 }, 0);
@@ -114,6 +109,6 @@ $total = array_reduce($carrito, function ($suma, $producto) {
         <?php endif; ?>
     </div>
 
-    <script src="js/carrito.js" defer></script> <!-- Enlace al archivo JS -->
+    <script src="js/carrito.js" defer></script> 
 </body>
 </html>

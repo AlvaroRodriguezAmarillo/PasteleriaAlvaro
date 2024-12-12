@@ -23,37 +23,27 @@ class Pasteleria {
     }
 
     private function cargarProductos() {
-        // Conectar a la base de datos
         $pdo = Conexion::conectar();
         
-        // Obtener los productos
         $stmt = $pdo->query("SELECT * FROM productos");
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            // Crear instancias de las clases hijas de Dulce según el tipo
             if ($row['tipo'] == 'Tarta') {
-                // Aquí asumo que el campo relleno es solo uno, si hay varios, debes ajustarlo
-                $producto = new Tarta($row['nombre'], $row['precio'], '', $row['categoria'], 3, [$row['relleno']]); // Pasa los rellenos según los datos
+                $producto = new Tarta($row['nombre'], $row['precio'], '', $row['categoria'], 3, [$row['relleno']]); 
             } elseif ($row['tipo'] == 'Croissant' || $row['tipo'] == 'Bollo') {
                 $producto = new Bollo($row['nombre'], $row['precio'], '', $row['categoria'], $row['relleno']);
             } elseif ($row['tipo'] == 'Chocolate') {
-                // En este caso, he usado valores predeterminados para el porcentaje de cacao y gramos
                 $producto = new Chocolate($row['nombre'], $row['precio'], '', $row['categoria'], 70, 100);
             } else {
-                // Si hay otros tipos de productos, maneja aquí la creación del objeto
                 continue;
             }
 
-            // Añadir el producto al array de productos
             $this->productos[] = $producto;
         }
     }
 
     private function cargarClientes() {
-        // Conectar a la base de datos
         $pdo = Conexion::conectar();
-        
-        // Obtener los clientes
         $stmt = $pdo->query("SELECT * FROM clientes");
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

@@ -1,4 +1,3 @@
-/* General */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f4f4f4;
@@ -7,7 +6,6 @@ body {
     padding: 0;
 }
 
-/* Contenedor principal */
 .container {
     width: 50%;
     margin: 50px auto;
@@ -21,7 +19,6 @@ h1 {
     text-align: center;
 }
 
-/* Estilos para el formulario de login */
 form {
     display: flex;
     flex-direction: column;
@@ -44,7 +41,7 @@ input[type="password"] {
 button {
     padding: 10px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #4CAF50; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -52,17 +49,33 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #45a049; 
 }
 
-/* Estilo para mensajes de error */
+.btn-login {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #008CBA; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background-color: #007B9E; 
+}
+
+
 .error {
     color: red;
     font-size: 14px;
     text-align: center;
 }
 
-/* Estilo para los enlaces */
 a {
     display: block;
     text-align: center;
@@ -74,4 +87,3 @@ a {
 a:hover {
     text-decoration: underline;
 }
-

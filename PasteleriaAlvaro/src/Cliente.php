@@ -4,12 +4,12 @@ require_once '../util/PasteleriaException.php';
 require_once '../util/DulceNoCompradoException.php';
 require_once '../util/DulceNoEncontradoException.php';
 require_once '../util/ClienteNoEncontradoException.php';
-require_once '../src/Conexion.php';  // Incluir la clase de conexión a la base de datos
+require_once '../src/Conexion.php'; 
 
 class Cliente {
 
     //Se añaden los atributos
-    private $id; // Añadimos el id para la base de datos
+    private $id; 
     private $nombre;
     private $numPedidosEfectuados;
     private $dulcesComprados;
@@ -35,34 +35,30 @@ class Cliente {
         return $this->numPedidosEfectuados;
     }
 
-    // Método para realizar la compra de un dulce (inserta en la base de datos)
     public function comprar(Dulce $d) {
-        // Conexión a la base de datos
         $conexion = Conexion::conectar();
         
-        // Verificamos si el dulce ya ha sido comprado
         if (in_array($d, $this->dulcesComprados)) {
             throw new DulceNoCompradoException("Ya has comprado el dulce: " . $d->getNombre());
         } elseif (!$d) {
             throw new DulceNoEncontradoException("El dulce no se encuentra disponible.");
         }
 
-        // Insertamos el pedido en la base de datos
-        $query = "INSERT INTO pedidos (cliente_id, producto_id, cantidad) VALUES (?, ?, 1)";  // Se asume cantidad 1 por cada compra
+        //Insertamos el pedido en la base de datos
+        $query = "INSERT INTO pedidos (cliente_id, producto_id, cantidad) VALUES (?, ?, 1)";  
         $stmt = $conexion->prepare($query);
-        $stmt->bind_param("ii", $this->id, $d->getId());  // $this->id y $d->getId() se usan para insertar el pedido
+        $stmt->bind_param("ii", $this->id, $d->getId());
         if ($stmt->execute()) {
-            $this->dulcesComprados[] = $d;  // Añadimos el dulce al array local
+            $this->dulcesComprados[] = $d;  
             $this->numPedidosEfectuados++;
             echo "Has comprado el dulce: " . $d->getNombre() . ".<br>";
         } else {
             throw new PasteleriaException("Error al realizar el pedido.");
         }
 
-        return $this;  // Esto permite el encadenamiento de métodos
+        return $this;  
     }
 
-    // Método para listar los pedidos realizados por el cliente
     public function listarPedidos() {
         if (empty($this->dulcesComprados)) {
             throw new DulceNoCompradoException("No has realizado ningún pedido.");
